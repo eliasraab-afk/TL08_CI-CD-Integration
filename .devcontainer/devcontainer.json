@@ -1,0 +1,21 @@
+{
+  "name": "T-08: CI/CD-Integration",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/terraform:1": { "version": "latest", "tflint": "latest" },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": { "version": "latest", "moby": true, "dockerDashComposeVersion": "v2" },
+    "ghcr.io/devcontainers/features/github-cli:1": { "version": "latest" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "github.vscode-github-actions",
+        "streetsidesoftware.code-spell-checker-german"
+      ],
+      "settings": { "[terraform]": { "editor.defaultFormatter": "hashicorp.terraform", "editor.formatOnSave": true } }
+    }
+  },
+  "postCreateCommand": "echo '🔧 Installiere tfsec...' && curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash > /dev/null 2>&1 && echo '✅ Umgebung bereit!' && terraform --version && tfsec --version 2>/dev/null && gh --version && echo '👉 Starte mit: cat README.md'",
+  "remoteUser": "vscode"
+}
